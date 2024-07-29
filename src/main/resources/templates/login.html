@@ -1,23 +1,34 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>tune hub : Login</title>
-<link rel ="stylesheet" th:href="@{/css/style.css}">
+<title>Login Page</title>
+<link rel="stylesheet" th:href="@{/css/login.css}">
+<link rel="icon" th:href="@{/img/icon.png}">
 </head>
 <body>
-<h1>User Login</h1>
-<form action="validate" method = "post">
-	<label>Email : </label>
-	<input type = "email" name = "email"/>
-	<br>
-	<label>Password : </label>
-	<input type = "password" name = "password"/>
-	<br>
-	
-	<input type = 'submit' value = "LOGIN"/>
+	<header>
+        <div class="logo">
+            <img src="img/logo.jpg" alt="TuneHub Logo">
+            <a href="tunehub" style="color: white;text-decoration: none;"><h1>TuneHub</h1></a>
+        </div>
+        
+    </header>
+	<div class="heading">
+	<h1>TuneHub</h1>
+	<h3>Welcome to the Music World.</h3>
+	</div>
+	<div class="login">
+	<h4> LOGIN </h4>
+	<form action="validate" method="post">
+		<label>Email</label> <input type="email" name="email"><br>
+		<label>Password</label> <input type="password" name="password"><br>
+
+		<input type="submit">
 	</form>
-
-
+	<p><a href="forgot">Forgot Password ?</a></p>
+	<p><a href="registration">New User ?</a></p>
+	</div>
 </body>
 </html>

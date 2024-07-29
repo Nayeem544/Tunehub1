@@ -8,6 +8,7 @@ public class Song {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int id;
+	String image;
 	String name;
 	String artist;
 	String genre;
@@ -18,9 +19,10 @@ public class Song {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Song(int id, String name, String artist, String genre, String link, List<Playlist> playlists) {
+	public Song(int id, String image, String name, String artist, String genre, String link, List<Playlist> playlists) {
 		super();
 		this.id = id;
+		this.image = image;
 		this.name = name;
 		this.artist = artist;
 		this.genre = genre;
@@ -32,6 +34,12 @@ public class Song {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	public String getName() {
 		return name;
@@ -62,11 +70,6 @@ public class Song {
 	}
 	public void setPlaylists(List<Playlist> playlists) {
 		this.playlists = playlists;
-	}
-	@Override
-	public String toString() {
-		return "Song [id=" + id + ", name=" + name + ", artist=" + artist + ", genre=" + genre + ", link=" + link
-				+ ", playlists=" +  "]";
 	}
 	
 }

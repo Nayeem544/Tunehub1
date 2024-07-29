@@ -10,43 +10,63 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.tap.bit.entities.Song;
+import com.tap.bit.entities.Trending;
 import com.tap.bit.services.SongService;
+import com.tap.bit.services.TrendingSong;
+
+import jakarta.transaction.Transactional;
+
 
 @Controller
 public class SongController {
 	@Autowired
 	SongService service;
+	@Autowired
+	TrendingSong trendingSongService;
 	@PostMapping("/addSong")
 	public String addSong(@ModelAttribute Song song) {
-		
 		boolean songStatus=service.songExists(song.getName());
-		if(songStatus == false) {
-			service.addSong(song);
-			System.out.println("song added successfully");
+		if(songStatus==false) {
+		service.addSong(song);
+		System.out.println("Song added successfully.");
 		}else {
-			System.out.println("song already exists");
-		}return "adminHome";
+			System.out.println("song already exists.");
+		}
+		return "adminHome";
 	}
-	@GetMapping("/viewSongs")
+	@GetMapping("viewSongs")
 	public String viewSongs(Model model) {
-		
 		List<Song> songsList = service.fetchAllSongs();
+	
 		model.addAttribute("songs", songsList);
+		List<Trending> trendingSongsList = trendingSongService.fetchAllSongs();
+		model.addAttribute("trendingSongs",trendingSongsList);
 		return "displaySongs";
 	}
-	@GetMapping("/playSongs")
+	@GetMapping("playSongs")
 	public String playSongs(Model model) {
 		
-		boolean permiumUser = false;
-		if(permiumUser == true) {
-			List<Song> songsList = service.fetchAllSongs();
-			model.addAttribute("songs", songsList);
-			return "displaySongs";
-		}else {
+		boolean premiumUser = true;
+		if(premiumUser==true) {
+		List<Song> songsList = service.fetchAllSongs();
+		model.addAttribute("songs", songsList);
+		List<Trending> trendingSongsList = trendingSongService.fetchAllSongs();
+		model.addAttribute("trendingSongs",trendingSongsList);
+		return "displaySongs";
+		}
+		else {
 			return "makePayment";
 		}
-		
-}
-		
-		
+	}
+	@PostMapping("/trendingSong")
+	@Transactional
+	public String addTrendingSong(@ModelAttribute Trending song,Model model) {
+		trendingSongService.addSong(song);
+		List<Song> songsList = service.fetchAllSongs();
+		model.addAttribute("songs", songsList);
+		List<Trending> trendingSongsList = trendingSongService.fetchAllSongs();
+		model.addAttribute("trendingSongs",trendingSongsList);
+		return "adminHome";
+	}
+	
 }

@@ -46,5 +46,19 @@ public class UsersServiceIplementation implements UsersService{
 	public void updateUser(Users user) {
 		repo.save(user);
 	}
+	@Override
+	public boolean updatePassword(String email, String password) {
+		// TODO Auto-generated method stub
+		Users user = repo.findByEmail(email);
+		if(user==null) {
+			return false;
+		}else {
+			user.setPassword(password);
+			repo.save(user);
+			return true;
+		}
+		
+	}
+
 
 }
